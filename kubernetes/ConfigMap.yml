@@ -4,7 +4,7 @@ metadata:
   name: car-config
   namespace: default
 data:
-  SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/cars?useSSL=true
+  SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3307/cars?useSSL=true
   SPRING_JPA_HIBERNATE_DDL_AUTO: update
   SPRING_JPA_SHOW_SQL: "true"
   spring.jpa.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
