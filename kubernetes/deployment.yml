@@ -16,6 +16,29 @@ spec:
     spec:
       containers:
       - name: aziz
-        image: azizkhedhiri/devops:1.14.2
+        image: azizkhedhiri/aziz-spring:2
         ports:
-        - containerPort: 8081
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: car-config
+              key: SPRING_DATASOURCE_URL
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          valueFrom:
+            configMapKeyRef:
+              name: car-config
+              key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        - name: SPRING_JPA_SHOW_SQL
+          valueFrom:
+            configMapKeyRef:
+              name: car-config
+              key: SPRING_JPA_SHOW_SQL
+        - name: spring.jpa.hibernate.dialect
+          valueFrom:
+            configMapKeyRef:
+              name: car-config
+              key: spring.jpa.hibernate.dialect
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: mysql

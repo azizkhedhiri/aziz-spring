@@ -7,6 +7,6 @@ spec:
   selector:
     app: aziz-app
   ports:
-    - port: 80
-      targetPort: 8081
+    - port: 8080
+      targetPort: 8080
       nodePort: 30007
