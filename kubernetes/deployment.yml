@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aziz-app
+  labels:
+    app: aziz-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aziz-app
+  template:
+    metadata:
+      labels:
+        app: aziz-app
+    spec:
+      containers:
+      - name: aziz
+        image: azizkhedhiri/devops:1.14.2
+        ports:
+        - containerPort: 8081

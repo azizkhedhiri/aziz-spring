@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="background-image: url('https://i0.wp.com/gomechanic.in/blog/wp-content/uploads/2020/05/Automotive-Lights-Explained-01.jpg?fit=2401%2C1259&ssl=1'); object-fit: contain">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse d-flex justify-content-between px-5" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <h1 class="text-success" >Cars</h1>
+            </li>
+        </ul>
+        <div class="d-flex align-items-center gap-3" >
+            <h3 th:text="${#authentication.name}" class="font-monospace"></h3>
+            <form method="post" th:action="@{/logout}">
+                <button type="submit" class="btn btn-danger fa-sharp fa-solid fa-door-closed d-flex gap-3">se deconnecter</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">
+
+
+    <form class="mt-5 d-flex justify-content-between align-items-center" th:action="@{/user/index}">
+        <div class="mx-2 my-2">
+            <label class="form-label text-white" for="form1">Mot clé:</label>
+            <input type="text" id="form1" name="mc" th:value="${mc}"  />
+            <button type="submit" class="btn btn-primary fa fa-search" />
+        </div>
+        <div >
+            <a href="/admin/formCar" class="btn btn-primary fa fa-plus ">Ajouter une nouvelle voiture </a>
+        </div>
+    </form >
+    <div class="card mt-5">
+        <div class="card-header">
+            <h2>Liste des Voitures</h2>
+        </div>
+        <div class="card-body">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Model</th>
+                    <th>Categorie</th>
+                    <th>Actions</th>
+
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c:${cars}">
+
+                    <td  th:if="${c.photo=='' || c.photo==null}">
+                        <img class="rounded-pill" src="/photos/inconnu.jpg" width="60" height="60">
+                    </td>
+                    <td th:unless="${c.photo=='' || c.photo==null}">
+                        <img class="rounded-pill"  th:src="@{${'/photos/'+c.photo}}" width="60" height="60">
+                    </td>
+                    <td th:text="${c.id}"></td>
+                    <td th:text="${c.nom}"></td>
+                    <td th:text="${c.prix}"></td>
+                    <td th:text="${c.model}"></td>
+                    <td th:text="${c.categorie.nom}"></td>
+                    <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+                        <a th:href="@{'/admin/delete/'+${c.id}}" class="btn btn-danger fa fa-trash"></a>
+                        <a th:href="@{'/admin/update/'+${c.id}}" class="btn btn-warning fa fa-edit"></a>
+
+                    </td>
+
+
+                </tr>
+                </tbody>
+
+
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="i,c:${pages}" >
+                    <a th:href="@{/user/index(mc=${mc},page=${c.index})}" th:text="${c.index+1}"
+                       th:class="${c.index==currentpage?'btn btn-primary mx-2':'btn btn-outline-primary mx-2'}"></a>
+
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

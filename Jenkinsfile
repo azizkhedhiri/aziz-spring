@@ -22,11 +22,10 @@ pipeline {
         stage('Build Backend'){
             agent any
             steps {
-                dir('aziz-spring'){
-                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/aziz-spring:$BUILD_ID .'
-                    sh 'docker push $DOCKERHUB_CREDENTIALS_USR/aziz-spring:$BUILD_ID'
-                    sh 'docker rmi $DOCKERHUB_CREDENTIALS_USR/aziz-spring:$BUILD_ID'
-                }
+                sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/aziz-spring:$BUILD_ID .'
+                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/aziz-spring:$BUILD_ID'
+                sh 'docker rmi $DOCKERHUB_CREDENTIALS_USR/aziz-spring:$BUILD_ID'
+
             }
         }
 
